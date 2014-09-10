@@ -3,7 +3,7 @@ var config = require('./conf/config');
 
 var log = config.logger;
 var mongo = require('./dao/mongo');
-mongo.connect(config.conf.get('mongo:url'));
+//mongo.connect(config.conf.get('mongo:url'));
 
 var routes = require('./routes');
 routes.configure({mongo: mongo});
