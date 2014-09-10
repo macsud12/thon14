@@ -1,0 +1,7 @@
+{
+    "about": "Configuration file with default settings",
+    "path": "./request.log",
+    "mongo" : {
+        "url":"mongodb://username:password@host/db"
+    }
+}
