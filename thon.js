@@ -31,7 +31,6 @@ server.listen(3000, function () {
   console.log('Listening at %s', server.address().port);
 });
 
-
 //======= ENDPOINTS ========
 app.get('/', function (req, res) {
   res.render('index');
@@ -43,6 +42,19 @@ app.get('/healthcheck', function (req, res, next) {
 
 });
 app.get('/v1/users/list', routes.users.list);
+
+
+
+function dummyUsers() {
+  io.emit('usersUpdated', [
+    {name: "test" + parseInt(Math.random() * 100)},
+    {name: "test" + parseInt(Math.random() * 100)},
+    {name: "test" + parseInt(Math.random() * 100)},
+    {name: "test" + parseInt(Math.random() * 100)}
+  ]);
+  setTimeout(function () { dummyUsers() }, 100);
+}
+dummyUsers();
 
 
 
