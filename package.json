@@ -17,6 +17,8 @@
     "socket.io": "*"
   },
   "devDependencies": {
-    "jade": "^1.6.0"
+    "jade": "^1.6.0",
+    "express-winston": "^0.2.6",
+    "winston": "^0.7.3"
   }
 }

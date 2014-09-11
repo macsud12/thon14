@@ -1,11 +1,21 @@
-var config = require('./conf/config');
-var express = require('express');
-var http = require('http');
-var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var config = require('./conf/config'),
+    express = require('express'),
+    http = require('http'),
+    app = express(),
+    server = http.createServer(app),
+    io = require('socket.io').listen(server),
+    winston = require('winston'),
+    expressWinston = require('express-winston');
 
 app.use(express.static(__dirname + "/public"));
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    })
+  ]
+}));
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.locals.pretty = true;
@@ -15,7 +25,6 @@ var mongo = require('./dao/mongo');
 
 var routes = require('./routes');
 routes.configure({mongo: mongo});
-
 
 //======= HTTP SERVER =====
 server.listen(3000, function () {
