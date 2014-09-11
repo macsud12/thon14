@@ -10,7 +10,6 @@ app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.locals.pretty = true;
 
-//var log = config.logger;
 var mongo = require('./dao/mongo');
 //mongo.connect(config.conf.get('mongo:url'));
 
@@ -19,20 +18,12 @@ routes.configure({mongo: mongo});
 
 
 //======= HTTP SERVER =====
-//var server = restify.createServer({ name: 'thon', log: log});
-
 server.listen(3000, function () {
   console.log('Listening at %s', server.address().port);
 });
 
-/*server.pre(function (request, response, next) {
-    request.log.info({ req: request }, 'REQUEST');
-    next();
-});*/
-
 
 //======= ENDPOINTS ========
-
 app.get('/', function (req, res) {
   res.render('index');
 });
