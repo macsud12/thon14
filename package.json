@@ -9,7 +9,6 @@
     "start": "node thon.js"
   },
   "dependencies": {
-    "bunyan": "*",
     "mongoose": "*",
     "async": "*",
     "nconf": "*",
