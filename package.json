@@ -1,18 +1,22 @@
 {
-    "name": "thon14",
-    "version": "0.0.1",
-    "description": "Prototype, THON14",
-    "author": "UFO",
-    "homepage": "not yet",
-    "private": true,
-    "scripts": {
-        "start": "node thon.js"
-    },
-    "dependencies": {
-        "restify": "*",
-        "bunyan": "*",
-        "mongoose": "*",
-        "async": "*",
-        "nconf":"*"
-    }
+  "name": "thon14",
+  "version": "0.0.1",
+  "description": "Prototype, THON14",
+  "author": "UFO",
+  "homepage": "not yet",
+  "private": true,
+  "scripts": {
+    "start": "node thon.js"
+  },
+  "dependencies": {
+    "bunyan": "*",
+    "mongoose": "*",
+    "async": "*",
+    "nconf": "*",
+    "express": "*",
+    "socket.io": "*"
+  },
+  "devDependencies": {
+    "jade": "^1.6.0"
+  }
 }
