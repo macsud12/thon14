@@ -1,38 +1,60 @@
-var restify = require('restify');
-var config = require('./conf/config');
+var config = require('./conf/config'),
+    express = require('express'),
+    http = require('http'),
+    app = express(),
+    server = http.createServer(app),
+    io = require('socket.io').listen(server),
+    winston = require('winston'),
+    expressWinston = require('express-winston');
 
-var log = config.logger;
+app.use(express.static(__dirname + "/public"));
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    })
+  ]
+}));
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
+app.locals.pretty = true;
+
 var mongo = require('./dao/mongo');
 //mongo.connect(config.conf.get('mongo:url'));
 
 var routes = require('./routes');
 routes.configure({mongo: mongo});
 
-
 //======= HTTP SERVER =====
-var server = restify.createServer({ name: 'thon', log: log});
-
 server.listen(3000, function () {
-  console.log('%s listening at %s', server.name, server.url)
+  console.log('Listening at %s', server.address().port);
 });
-
-server
-  .use(restify.fullResponse())
-  .use(restify.bodyParser());
-
-server.pre(function (request, response, next) {
-    request.log.info({ req: request }, 'REQUEST');
-    next();
-});
-
 
 //======= ENDPOINTS ========
-server.get('/healthcheck', function (req, res, next) {
+app.get('/', function (req, res) {
+  res.render('index');
+});
 
-    res.send("Healthcheck passed")
+app.get('/healthcheck', function (req, res, next) {
+
+    res.send("Healthcheck passed");
 
 });
-server.get('/v1/users/list', routes.users.list);
+app.get('/v1/users/list', routes.users.list);
+
+
+
+function dummyUsers() {
+  io.emit('usersUpdated', [
+    {name: "test" + parseInt(Math.random() * 100)},
+    {name: "test" + parseInt(Math.random() * 100)},
+    {name: "test" + parseInt(Math.random() * 100)},
+    {name: "test" + parseInt(Math.random() * 100)}
+  ]);
+  setTimeout(function () { dummyUsers() }, 100);
+}
+dummyUsers();
 
 
 

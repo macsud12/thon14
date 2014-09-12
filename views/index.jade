@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	nav.navbar.navbar-default(role='navigation')
+		.container-fluid
+			.navbar-header
+				h3 Hello world (Stas and Maks)
+	div(ng-controller='usersList')
+		h3 {{title}}
+		ul
+			li(ng-repeat="user in users") {{user.name}}
