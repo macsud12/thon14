@@ -1,6 +1,7 @@
 var config = require('./conf/config'),
     express = require('express'),
     http = require('http'),
+    https = require('https'),
     app = express(),
     server = http.createServer(app),
     io = require('socket.io').listen(server),
@@ -23,7 +24,7 @@ app.locals.pretty = true;
 
 //======= Init Mongo =======
 var routes = require('./routes');
-routes.configure({mongo: mongo, http: http});
+routes.configure({mongo: mongo, https: https});
 
 
 //======= HTTP SERVER =====
