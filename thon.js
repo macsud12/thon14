@@ -21,7 +21,7 @@ app.set('views', __dirname + '/views');
 app.locals.pretty = true;
 
 var mongo = require('./dao/mongo');
-//mongo.connect(config.conf.get('mongo:url'));
+mongo.connect(config.conf.get('mongo:url'));
 
 var routes = require('./routes');
 routes.configure({mongo: mongo});

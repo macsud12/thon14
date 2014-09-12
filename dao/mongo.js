@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Any = new mongoose.Schema({ any: mongoose.Schema.Types.Mixed });
-var users =  mongoose.model('sessions', Any);
+var users =  mongoose.model('thon', Any);
 exports.connect = function (dburl, callback) {
     mongoose.connect(dburl);
     if (callback) callback();
