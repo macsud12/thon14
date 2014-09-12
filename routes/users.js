@@ -16,3 +16,12 @@ exports.list =function (req, res, next) {
 	  }
 	});
 };
+
+exports.project =function (req, res, next) {
+    console.log('Project info');
+	
+	http.get("https://e3s.epam.com/rest/e3s-eco-scripting-impl/0.1.0/data/select?type=com.epam.e3s.app.project.api.data.ProjectProjectionEntity&query={'name':'NYT-ODC'}", 
+		function (resp) {
+			res.send(resp)
+		});
+};

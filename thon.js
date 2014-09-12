@@ -21,9 +21,7 @@ app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.locals.pretty = true;
 
-//var mongo = require('./dao/mongo');
-//mongo.connect(config.conf.get('mongo:url'));
-
+//======= Init Mongo =======
 var routes = require('./routes');
 routes.configure({mongo: mongo});
 
@@ -39,11 +37,14 @@ app.get('/', function (req, res) {
 });
 
 app.get('/healthcheck', function (req, res, next) {
-
     res.send("Healthcheck passed");
-
 });
+
+// List of users from mongo
 app.get('/v1/users/list', routes.users.list);
+
+// E3S testing
+app.get('/v1/users/project', routes.users.project);
 
 
 
