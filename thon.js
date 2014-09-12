@@ -5,6 +5,7 @@ var config = require('./conf/config'),
     server = http.createServer(app),
     io = require('socket.io').listen(server),
     winston = require('winston'),
+	mongo = require('mongodb').MongoClient;
     expressWinston = require('express-winston');
 
 app.use(express.static(__dirname + "/public"));
@@ -20,11 +21,12 @@ app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.locals.pretty = true;
 
-var mongo = require('./dao/mongo');
-mongo.connect(config.conf.get('mongo:url'));
+//var mongo = require('./dao/mongo');
+//mongo.connect(config.conf.get('mongo:url'));
 
 var routes = require('./routes');
 routes.configure({mongo: mongo});
+
 
 //======= HTTP SERVER =====
 server.listen(3000, function () {

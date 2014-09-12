@@ -11,6 +11,7 @@
   "dependencies": {
     "mongoose": "*",
     "async": "*",
+	"mongodb": "*",
     "nconf": "*",
     "express": "*",
     "socket.io": "*"
