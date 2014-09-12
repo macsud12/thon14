@@ -23,7 +23,7 @@ app.locals.pretty = true;
 
 //======= Init Mongo =======
 var routes = require('./routes');
-routes.configure({mongo: mongo});
+routes.configure({mongo: mongo, http: http});
 
 
 //======= HTTP SERVER =====
