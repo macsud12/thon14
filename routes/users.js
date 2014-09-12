@@ -1,7 +1,9 @@
 var mongo = undefined;
+var http = http;
 
 exports.configure = function (params) {
     mongo = params.mongo;
+	http = params.http;
 };
 
 exports.list =function (req, res, next) {
