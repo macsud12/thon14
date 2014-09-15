@@ -22,10 +22,14 @@ app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.locals.pretty = true;
 
-//======= Init Mongo =======
-var routes = require('./routes');
-routes.configure({mongo: mongo, https: https});
 
+//Init e3s dao
+var e3s = require('./dao/e3s');
+e3s.config({https:https});
+
+//======= Init Routes =======
+var rest = require('./routes/rest');
+rest.configure({mongo: mongo, https: https, e3s: e3s});
 
 //======= HTTP SERVER =====
 server.listen(3000, function () {
@@ -42,10 +46,10 @@ app.get('/healthcheck', function (req, res, next) {
 });
 
 // List of users from mongo
-app.get('/v1/users/list', routes.users.list);
+app.get('/v1/users', rest.users);
 
 // E3S testing
-app.get('/v1/users/project', routes.users.project);
+app.get('/v1/users/projects', rest.userProjects);
 
 
 
