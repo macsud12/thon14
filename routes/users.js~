@@ -1,0 +1,41 @@
+var mongo = undefined;
+var https = undefined;
+var e3s = undefined;
+
+exports.configure = function (params) {
+	mongo = params.mongo;
+	https = params.https;
+	e3s = params.e3s;
+};
+
+// To check mongo DB connection
+exports.list =function (req, res, next) {
+    console.log('List of users');
+	
+	// Connect to the db
+	mongo.connect("mongodb://localhost/thon", function(err, db) {
+	  if(!err) {
+		console.log("We are connected");
+		var collection = db.collection('thon');
+		collection.find().toArray(function(err, items) {console.log(items);res.send(items);});
+	  }
+	});
+};
+
+// To get project info
+exports.info =function (req, res, next) {
+	console.log('Project info');
+
+	var response = e3s.projectList('maksim_alipov@epam.com', new function(data) {
+		res.setHeader('content-type', 'text/html');
+		res.send(JSON.stringify(data));
+});
+	
+	
+};
+
+
+// To list user projects
+exports.project =function (req, res, next) {
+	console.log('Users projects');	
+};
